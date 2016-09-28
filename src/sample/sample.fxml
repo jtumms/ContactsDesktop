@@ -13,7 +13,7 @@
             <TextField fx:id="name" prefHeight="24.0" prefWidth="158.0" promptText="Name" HBox.hgrow="ALWAYS" />
             <TextField fx:id="phone" prefHeight="24.0" prefWidth="152.0" promptText="Phone #" HBox.hgrow="ALWAYS" />
             <TextField fx:id="email" layoutX="131.0" layoutY="10.0" prefHeight="24.0" prefWidth="152.0" promptText="Email" HBox.hgrow="ALWAYS" />
-            <Button layoutX="373.0" layoutY="10.0" mnemonicParsing="false" onAction="#addContact" prefHeight="24.0" prefWidth="70.0" text="Add" HBox.hgrow="ALWAYS" />
+            <Button fx:id="buttonAdd" layoutX="373.0" layoutY="10.0" mnemonicParsing="false" onAction="#addContact" prefHeight="24.0" prefWidth="70.0" text="Add" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#removeItem" prefHeight="24.0" prefWidth="70.0" text="Remove" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
