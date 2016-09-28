@@ -14,9 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import jodd.json.JsonSerializer;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,11 +45,29 @@ public class Controller implements Initializable, ChangeListener{
         String inputPhone = phone.getText();
         String inputEmail = email.getText();
         Contact contact = new Contact(inputName, inputPhone, inputEmail);
-        contacts.add(contact);
-
+        if (!inputName.isEmpty() && !inputPhone.isEmpty() && !inputEmail.isEmpty()){
+            contacts.add(contact);
+        }
         name.clear();
         phone.clear();
         email.clear();
+
+
+    }
+    public void write(ObservableList<Contact> contacts) {
+        try {
+            // write object to file
+            FileOutputStream fos = new FileOutputStream("Objectsavefile.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(new ArrayList<EmployeeEntity>(personsObservable));
+            oos.close();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -64,9 +80,6 @@ public class Controller implements Initializable, ChangeListener{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list.setItems(contacts);
-//        if (name.getText().isEmpty()){
-//            buttonAdd.setDisable(true);
-//        }
 
     }
     @Override
@@ -74,11 +87,5 @@ public class Controller implements Initializable, ChangeListener{
 
 
     }
-
-
-
-
-
-
 
 }
