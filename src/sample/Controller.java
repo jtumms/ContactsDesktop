@@ -16,6 +16,7 @@ import jodd.json.JsonSerializer;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static java.awt.SystemColor.text;
@@ -51,6 +52,7 @@ public class Controller implements Initializable, ChangeListener{
         name.clear();
         phone.clear();
         email.clear();
+        write(contacts);
 
 
     }
@@ -59,7 +61,7 @@ public class Controller implements Initializable, ChangeListener{
             // write object to file
             FileOutputStream fos = new FileOutputStream("Objectsavefile.ser");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(new ArrayList<EmployeeEntity>(personsObservable));
+            oos.writeObject(new ArrayList<Contact>(contacts));
             oos.close();
 
 
@@ -70,6 +72,20 @@ public class Controller implements Initializable, ChangeListener{
         }
 
     }
+    private static ObservableList<Contact> read() {
+        try {
+            File f = new File("Objectsavefile.ser");
+            ObjectInputStream ois = new ObjectInputStream(in);
+            List<EmployeeEntity> list = (List<EmployeeEntity>) ois.readObject() ;
+
+            return FXCollections.observableList(list);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return FXCollections.emptyObservableList();
+    }
 
     public void removeItem(){
         Contact contact = (Contact) list.getSelectionModel().getSelectedItem();
@@ -79,7 +95,10 @@ public class Controller implements Initializable, ChangeListener{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        File f = new File("Objectsavefile.ser");
+
         list.setItems(contacts);
+
 
     }
     @Override
