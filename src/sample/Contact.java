@@ -43,4 +43,7 @@ public class Contact {
         return String.format("%s, %s, %s", name, phone, email);
 
     }
+
+    public Contact() {
+    }
 }
